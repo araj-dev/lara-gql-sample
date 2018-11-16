@@ -1,0 +1,40 @@
+version: '3'
+services:
+  laravel:
+    build:
+      context: .
+      dockerfile: ./docker/laravel/build/Dockerfile
+    command: /usr/sbin/php-fpm7 -R
+    volumes:
+      - ./lighthouse-example:/app:cached
+      - /app/node_modules
+      - /app/storage/framework
+      - /app/storage/app
+    env_file: ./lighthouse-example/.env
+    links:
+      - mysql
+      - redis
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/build/Dockerfile
+    links:
+      - laravel
+    ports:
+      - 9022:80
+    volumes:
+      - ./lighthouse-example:/app:cached
+    command: /usr/sbin/nginx
+  redis:
+    image: redis
+    ports:
+      - 9023:6379
+  mysql:
+    image: mysql:5.6
+    ports:
+      - 9025:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "lighthouse_example"
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql

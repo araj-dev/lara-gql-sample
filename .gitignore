@@ -1,1 +1,4 @@
 .idea
+docker/mysql/data/
+lighthouse-example/node_modules
+my-app/node_modules
