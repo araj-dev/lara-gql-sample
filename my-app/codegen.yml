@@ -1,0 +1,10 @@
+schema:
+- "http://localhost:9022/graphql"
+documents:
+- "./src/**/*.graphql"
+generates:
+  ./src/generated-models.tsx:
+    plugins:
+    - "typescript-common"
+    - "typescript-client"
+    - "typescript-react-apollo"

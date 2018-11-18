@@ -1,0 +1,11 @@
+query JobQuery {
+    jobs (count:10, page:1) {
+        data {
+            title
+            user {
+                name
+                email
+            }
+        }
+    }
+}
