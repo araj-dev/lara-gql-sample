@@ -4,13 +4,13 @@ WORKDIR /app
 ADD ./docker/laravel/conf/php.ini /etc/php7/php.ini
 ADD ./docker/laravel/conf/xdebug.ini /etc/php7/conf.d/xdebug.ini
 ENV COMPOSER_VENDOR_DIR /app/vendor
-ADD ./lighthouse-example/composer.json /app
+ADD ./laravel/composer.json /app
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
     php -r "unlink('composer-setup.php');" && \
     php /usr/local/bin/composer install --no-scripts --no-autoloader
-ADD ./lighthouse-example/package.json /app
+ADD ./laravel/package.json /app
 RUN npm install
-ADD ./lighthouse-example /app
+ADD ./laravel /app
 RUN php /usr/local/bin/composer install
 ADD ./docker/laravel/conf/php-fpm.conf /etc/php7/php-fpm.conf

@@ -6,11 +6,11 @@ services:
       dockerfile: ./docker/laravel/build/Dockerfile
     command: /usr/sbin/php-fpm7 -R
     volumes:
-      - ./lighthouse-example:/app:cached
+      - ./laravel:/app:cached
       - /app/node_modules
       - /app/storage/framework
       - /app/storage/app
-    env_file: ./lighthouse-example/.env
+    env_file: ./laravel/.env
     links:
       - mysql
       - redis
@@ -23,7 +23,7 @@ services:
     ports:
       - 9022:80
     volumes:
-      - ./lighthouse-example:/app:cached
+      - ./laravel:/app:cached
     command: /usr/sbin/nginx
   redis:
     image: redis
